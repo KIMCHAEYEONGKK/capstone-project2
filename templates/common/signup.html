@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <main class="form-signin " style="width:auto; height:100vh; background: rgba(82, 114, 233, 0.41);">
+        <div class='container' style="width:400px; padding-top:10%; ">
+            <form method="post" action="{% url 'common:signup' %}">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 fw-normal" style="text-align:center;">회원가입
+                </h1>
+                <div class="mb-3">
+                    사용자 이름
+                    <input type="text" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="name" id="name">
+                </div>
+                <div class="mb-3">
+                    아이디
+                    <input type="email" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="username" id="username" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                   비밀번호
+                    <input type="password" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="password1" id="password1">
+                </div>
+                <div class="mb-3">
+                    비밀번호 확인
+                    <input type="password" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="password2" id="password2">
+                </div>
+                <div class="mb-3">
+                    키
+                    <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="tall" id="tall">
+                </div>
+                <div class="mb-3">
+                    나이
+                    <input type="number" class="form-control" style="border-radius: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="age" id="age">
+                </div>
+                <div class="mb-3">
+                    성별
+                    <input type="text" class="form-control" style="border-radius: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="gender" id="gender" placeholder="여자">
+                </div>
+                <div class="mb-3">
+                    운동 여부
+                    <input type="text" class="form-control" style="border-radius: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="exercise" id="exercise" placeholder="일주일에 운동을 3~4일 합니다.">
+                </div>
+<!--                <div class="mb-3" style="padding-top:2%;">-->
+<!--                    운동 여부-->
+<!--                    <select class="form-control btn dropdown-toggle" data-bs-toggle="dropdown"  aria-expanded="false" type="button" style="background-color:#FFFFFF; border-radius: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" id="exercise">-->
+<!--                        <option value="일주일에 운동을 매일 합니다.">일주일에 운동을 매일 합니다.</option>-->
+<!--                        <option value="일주일에 4~5번합니다.">일주일에 4~5번합니다.</option>-->
+<!--                        <option value="일주일에 3~4번합니다.">일주일에 3~4번합니다.</option>-->
+<!--                        <option value="일주일에 1~2번합니다">일주일에 1~2번합니다.</option>-->
+<!--                        <option value="일주일에 운동을 안합니다.">일주일에 운동을 안합니다.</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+                <div class="mb-5">
+
+                </div>
+
+                <button class=" btn btn-lg" style="border-radius: 20px; width:50%; margin:auto; display:block; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); background-color:#8F9FDB;" type="submit"><font style="color:#FFFFFF;">회원가입</font></button>
+            </form>
+        </div>
+        </main>
+    </body>
+</html>
