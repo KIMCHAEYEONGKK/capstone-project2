@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <container style="width:auto; height:auto; overflow: hidden;">
+              <div class="d-flex  justify-content-center " style="float:right;  padding-right:1%;">
+
+
+                <div class="text-end">
+
+                    {% if request.user.is_authenticated %}
+                        {{ request.user }}님 환영합니다.
+                    <a href ="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:#8F9FDB;">Logout</button></a>
+                    {% else %}
+                        <a href="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:	#8F9FDB;">Login</button></a>
+                        <a href="{% url 'common:signup' %}"><button type="button" class="btn btn-warning">Signup</button></a>
+                    {% endif %}
+                </div>
+              </div>
+
+    <div class=" d-flex flex-column " style="background: rgba(82, 114, 233, 0.41); width: 11%; height:115vh;  border-radius:0px 50px 50px 0px; float:left;">
+        <a href="{% url 'common:home' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
+          <svg class="bi pe-none me-1" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="p-3 fs-4">다이어터</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto" >
+          <li class="nav-item"  style='background-color:#8F9FDB;'>
+            <a href="{% url 'common:index' %}" class="nav-link text-white" aria-current="page">
+              <svg class="bi pe-none me-3" width="30%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#home"></use></svg>
+              홈
+            </a>
+          </li>
+          <li>
+            <a href="{% urls 'common:health_page' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#speedometer2"></use></svg>
+              운동
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'food:food_menu' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#table"></use></svg>
+              식단
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'setting:inbody_list' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#grid"></use></svg>
+              설정
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'board:board_list' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="21%"  style="height:70px;"><use xlink:href="#people-circle"></use></svg>
+              고객센터
+            </a>
+          </li>
+        </ul>
+      </div>
+        <div class='container' style="width:400px; padding-top:10%; ">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <h5 class="h3 mb-3 fw-normal" style="text-align:center;">하루 식단</h5>
+                    <div class="mb-5">
+
+                    </div>
+
+<!--                    <div class="h3 mb-3 fw-normal" style="text-align:center;" value="아침">-->
+<!--                        아침-->
+<!--                    </div>-->
+<!--                        <input type='checkbox' name='food' value="현미밥" onclick='getCheckboxValue(event)'>현미밥-->
+<!--                        <input type='checkbox' name='food' value="사과" onclick='getCheckboxValue(event)'>사과-->
+<!--                        <input type='checkbox' name='food' value="바나나" onclick='getCheckboxValue(event)'>바나나-->
+<!--                        <input type='checkbox' name='food' value="삶은달걀" onclick='getCheckboxValue(event)'>삶은달걀-->
+<!--                        <input type='checkbox' name='food' value="두부" onclick='getCheckboxValue(event)'>두부-->
+<!--                        <input type='checkbox' name='food' value="고구마" onclick='getCheckboxValue(event)'>고구마-->
+<!--                        <input type='checkbox' name='food' value="토마토" onclick='getCheckboxValue(event)'>토마토-->
+<!--                        <input type='checkbox' name='food' value="닭가슴살" onclick='getCheckboxValue(event)'>닭가슴살-->
+<!--                        <input type='checkbox' name='food' value="요거트" onclick='getCheckboxValue(event)'>요거트-->
+<!--                        <input type='checkbox' name='food' value="단백질쉐이크" onclick='getCheckboxValue(event)'>단백질쉐이크-->
+
+<!--                    <div class="mb-3">{{ UserFood.food_calorie }}</div>-->
+
+<!--                    <div class="h3 mb-3 fw-normal" style="text-align:center;" value="점심">-->
+<!--                        점심-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">현미밥</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">사과</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">바나나</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">삶은달걀</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">두부</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">고구마</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">토마토</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">닭가슴살</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">요거트</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">단백질쉐이크</label>-->
+<!--                    </div>-->
+
+<!--                    <div class="h3 mb-3 fw-normal" style="text-align:center;" value="저녁">-->
+<!--                        저녁-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">현미밥</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">사과</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">바나나</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">삶은달걀</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">두부</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">고구마</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">토마토</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">닭가슴살</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">요거트</label>-->
+<!--                        <label><input type='checkbox' name='food' value="{{ food.id }}">단백질쉐이크</label>-->
+<!--                    </div>-->
+
+
+<!--                    <button onclick='Calorie()'>저장</button>-->
+                    <div class="mb-3">
+                        섭취한 칼로리
+                        <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="eat_calorie" id="eat_calorie" placeholder="500(kcal)">
+                    </div>
+
+                    <div class="mb-3">
+                        운동 칼로리
+                        <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="health_calorie" id="health_calorie" placeholder="430(kcal)">
+                    </div>
+
+                    <div class="mb-5">
+
+                    </div>
+                    <button class=" btn btn-lg" style="border-radius: 20px; width:50%; margin:auto; display:block; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); background-color:#8F9FDB;" type="submit"><font style="color:#FFFFFF;">저장하기</font></button>
+                </form>
+            </div>
+        </container>
+    </body>
+</html>

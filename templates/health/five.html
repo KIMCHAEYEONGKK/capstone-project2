@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <style>
+      .hidden {
+          display: none;
+      }
+  </style>
+</head>
+<body>
+    <container style="width:100%; height:auto; ">
+              <div class="d-flex  justify-content-center " style="float:right;">
+
+               
+
+                    {% if request.user.is_authenticated %}
+                        {{ request.user }}
+                        <div class="text-end" style="position:relative; ">
+                        <button type="button" class="btn btn-outline-light me-2" style="float:right; background-color:	#8F9FDB;">Logout</button>
+                    {% else %}
+                        <a href="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:	#800000">Login</button></a>
+                        <a href="{% url 'common:signup' %}"><button type="button" class="btn btn-warning">Signup</button></a>
+                    {% endif %}
+                </div>
+              </div>
+
+    <div class=" d-flex flex-column " style="background: rgba(82, 114, 233, 0.41); width: 11%; height:115vh;  border-radius:0px 50px 50px 0px; float:left;">
+        <a href="{% url 'common:home' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
+          <svg class="bi pe-none me-1" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="p-3 fs-4">다이어터</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto" >
+          <li class="nav-item" >
+            <a href="{% url 'common:index' %}" class="nav-link text-white" aria-current="page">
+              <svg class="bi pe-none me-3" width="30%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#home"></use></svg>
+              홈
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'health_four' %}" class="nav-link text-white"  style='background-color:#8F9FDB;'>
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#speedometer2"></use></svg>
+              운동
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'food:food_menu' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#table"></use></svg>
+              식단
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'setting:inbody' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#grid"></use></svg>
+              설정
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'board:board_list' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-4" width="21%"  style="height:70px;"><use xlink:href="#people-circle"></use></svg>
+              게시판
+            </a>
+          </li>
+        </ul>
+    </div>
+    </container>
+    <script>
+      var currentIndex1 = 0;
+      var currentIndex2 = 0;
+      var currentIndex3 = 0;
+      var videosPerPage = 5;
+      var totalVideos1 = {{ videos_info|length }};
+      var totalVideos2 = {{ videos_info1|length }};
+      var totalVideos3 = {{ videos_info2|length }};
+    
+      function showVideos1() {
+        var videos = document.getElementsByClassName("video-item1");
+        var start = currentIndex1;
+        var end = currentIndex1 + videosPerPage;
+    
+        for (var i = 0; i < videos.length; i++) {
+          if (i >= start && i < end) {
+            videos[i].classList.remove("hidden");
+          } else {
+            videos[i].classList.add("hidden");
+          }
+        }
+      }
+    
+      function showNextVideos1() {
+        currentIndex1 += videosPerPage;
+        showVideos1();
+        updateButtons1();
+      }
+    
+      function showPreviousVideos1() {
+        currentIndex1 -= videosPerPage;
+        showVideos1();
+        updateButtons1();
+      }
+    
+      function showVideos2() {
+        var videos = document.getElementsByClassName("video-item2");
+        var start = currentIndex2;
+        var end = currentIndex2 + videosPerPage;
+    
+        for (var i = 0; i < videos.length; i++) {
+          if (i >= start && i < end) {
+            videos[i].classList.remove("hidden");
+          } else {
+            videos[i].classList.add("hidden");
+          }
+        }
+      }
+    
+      function showNextVideos2() {
+        currentIndex2 += videosPerPage;
+        showVideos2();
+        updateButtons2();
+      }
+    
+      function showPreviousVideos2() {
+        currentIndex2 -= videosPerPage;
+        showVideos2();
+        updateButtons2();
+      }
+      function showVideos3() {
+        var videos = document.getElementsByClassName("video-item3");
+        var start = currentIndex3;
+        var end = currentIndex3 + videosPerPage;
+    
+        for (var i = 0; i < videos.length; i++) {
+          if (i >= start && i < end) {
+            videos[i].classList.remove("hidden");
+          } else {
+            videos[i].classList.add("hidden");
+          }
+        }
+      }
+    
+      function showNextVideos3() {
+        currentIndex3 += videosPerPage;
+        showVideos3();
+        updateButtons3();
+      }
+    
+      function showPreviousVideos3() {
+        currentIndex3 -= videosPerPage;
+        showVideos3();
+        updateButtons3();
+      }
+      function updateButtons1() {
+        var nextButton = document.getElementById("next-button1");
+        var prevButton = document.getElementById("prev-button1");
+    
+        if (currentIndex1 + videosPerPage >= totalVideos1) {
+          nextButton.disabled = true;
+        } else {
+          nextButton.disabled = false;
+        }
+    
+        if (currentIndex1 === 0) {
+          prevButton.disabled = true;
+        } else {
+          prevButton.disabled = false;
+        }
+      }
+    
+      function updateButtons2() {
+        var nextButton = document.getElementById("next-button2");
+        var prevButton = document.getElementById("prev-button2");
+    
+        if (currentIndex2 + videosPerPage >= totalVideos2) {
+          nextButton.disabled = true;
+        } else {
+          nextButton.disabled = false;
+        }
+    
+        if (currentIndex2 === 0) {
+          prevButton.disabled = true;
+        } else {
+          prevButton.disabled = false;
+        }
+      }
+    
+      function updateButtons3() {
+        var nextButton = document.getElementById("next-button3");
+        var prevButton = document.getElementById("prev-button3");
+    
+        if (currentIndex3 + videosPerPage >= totalVideos3) {
+          nextButton.disabled = true;
+        } else {
+          nextButton.disabled = false;
+        }
+    
+        if (currentIndex3 === 0) {
+          prevButton.disabled = true;
+        } else {
+          prevButton.disabled = false;
+        }
+      }
+      // 초기 영상 표시
+      document.addEventListener("DOMContentLoaded", function() {
+        showVideos1();
+        showVideos2();
+        showVideos3();
+        updateButtons1();
+        updateButtons2();
+        updateButtons3();
+      });
+  </script>
+  <div class="container" style="position: absolute; width: 1560px;height: 100px; margin-left:14%; background: #FFFFFF;">
+  <label style="margin-left:40%; font-size:40px;">팔 운동</label>
+  <div id="video1-container" style="margin-top:5%;">
+  <font style=''># 덤벨 컬</font>
+     
+  <button id="prev-button1" onclick="showPreviousVideos1()" type="button" class="btn-light" style="position:absolute; margin-top:8%; margin-left:1%; left: 0; background-color: transparent; border: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+    </svg>
+</button>
+
+{% for video_info in videos_info %}
+    <div class="video-item1" >
+        <a href="{{ video_info.video_url }}">
+            <img src="{{ video_info.thumbnail_url }}" alt="Thumbnail" style="width:175px; height:200px; float:left; margin-left:5.3%;">
+        </a>
+    </div>
+{% endfor %}
+
+<button id="next-button1" onclick="showNextVideos1()" type="button" class="btn-light" style="margin-top:6%; margin-left:1%; background-color: transparent; border: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+    </svg>
+</button>
+      </div>
+      <br>
+      <div id="video2-container" style="margin-top:8%;">
+        <font style=''># 바벨 컬</font>
+        <button id="prev-button2" onclick="showPreviousVideos2()" type="button" class="btn-light" style="position:absolute; margin-top:8%; margin-left:1%; left: 0; background-color: transparent; border: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+        </svg>
+        </button>
+        {% for video_info1 in videos_info1 %}
+       
+        <div class="video-item2">
+            <a href="{{ video_info1.video_url }}">
+                <img src="{{ video_info1.thumbnail_url }}" alt="Thumbnail" style="width:175px; height:200px; float:left; margin-left:5.3%; ">
+            </a>
+        </div>
+        {% endfor %}
+       
+        <button id="next-button2" onclick="showNextVideos2()" type="button" class="btn-light" style="margin-top:6%; margin-left:1%; background-color: transparent; border: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+        </svg>
+        </button>
+    </div>
+    <br>
+    <div id="video3-container" style="margin-top:8%;">
+      <font style=''># 트라이셉스 푸시다운</font>
+      <button id="prev-button3" onclick="showPreviousVideos3()" style="position:absolute; margin-top:8%; margin-left:1%; left: 0; background-color: transparent; border: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+      </svg>
+      </button>
+        {% for video_info2 in videos_info2 %}
+       
+        <div class="video-item3">
+            <a href="{{ video_info2.video_url }}">
+                <img src="{{ video_info2.thumbnail_url }}" alt="Thumbnail" style="width:175px; height:200px; float:left; margin-left:5.3%; ">
+            </a>
+        </div>
+       
+        {% endfor %}
+
+        <button id="next-button3" onclick="showNextVideos3()" style="margin-top:6%; margin-left:1%; background-color: transparent; border: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+        </svg>
+        </button>
+      </div>
+    </div>
+    
+    </body>
+</html>

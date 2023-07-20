@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+{% load mathfilters %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <container style="width:auto; height:auto; overflow: hidden;">
+              <div class="d-flex  justify-content-center " style="float:right;  padding-right:1%;">
+
+
+
+                <div class="text-end">
+
+                    {% if request.user.is_authenticated %}
+                        {{ request.user }}님 환영합니다.
+                    <a href="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:	#8F9FDB;">Logout</button></a>
+                    {% else %}
+                        <a href="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:	#8F9FDB;">Login</button></a>
+                        <a href="{% url 'common:signup' %}"><button type="button" class="btn btn-warning">Signup</button></a>
+                    {% endif %}
+                </div>
+              </div>
+
+    <div class=" d-flex flex-column " style="background: rgba(82, 114, 233, 0.41); width: 11%; height:115vh;  border-radius:0px 50px 50px 0px; float:left;">
+        <a href="{% url 'common:home' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
+          <svg class="bi pe-none me-1" width="40" height="32"><use xlink:href="#home"></use></svg>
+          <span class="p-3 fs-4">다이어터</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto" >
+          <li class="nav-item"  style='background-color:#8F9FDB;'>
+            <a href="{% url 'common:home' %}" class="nav-link text-white" aria-current="page">
+              <svg class="bi pe-none me-3" width="30%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#home"></use></svg>
+              홈
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'health:four' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#speedometer2"></use></svg>
+              운동
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'food:food_menu' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#table"></use></svg>
+              식단
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'setting:inbody' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#grid"></use></svg>
+              설정
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'board:board_list' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-4" width="21%"  style="height:70px;"><use xlink:href="#people-circle"></use></svg>
+              게시판
+            </a>
+          </li>
+        </ul>
+
+
+
+      </div>
+      <div style='float:left;  padding-left:12%; width:160vh;'>
+         <h3>나의 스케줄</h3>
+         <div style="text-size:25px;">
+            <script>
+            date = new Date().toLocaleDateString();
+            document.write(date);
+            </script>
+            </div>
+            <div style = "padding-top:3%;">
+                <container style="float:left; padding-right:11%; border-bottom: solid 1px;">월</container>
+                <container style="float:left; padding-right:12%; border-bottom: solid 1px;">화</container>
+                <container style="float:left; padding-right:11%; border-bottom: solid 1px;">수</container>
+                <container style="float:left; padding-right:11%; border-bottom: solid 1px;">목</container>
+                <container style="float:left; padding-right:11%; border-bottom: solid 1px;">금</container>
+                <container style="float:left; padding-right:11%; border-bottom: solid 1px;">토</container>
+                <container style="float:left; padding-right:11%; border-bottom: solid 1px;">일</container>
+            </div>
+            <div style="padding-top:4%;padding-left:0;">
+                <a href="{% url 'health:first' %}" style="padding-right:1%; "><button style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+                <a href="{% url 'health:second' %}"  style="padding-right:1%; "><button  style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+                <a href="{% url 'health:six' %}"  style="padding-right:1%; "><button  style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+                <a href="{% url 'health:third' %}"  style="padding-right:1%; "><button  style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+                <a href="{% url 'health:four' %}"  style="padding-right:1%; "><button  style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+                <a href="{% url 'health:five' %}"  style="padding-right:1%; "><button  style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+                <a href="{% url 'health:seven' %}"  style="padding-right:1%; "><button  style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px; padding-bottom:-2%;"><div style="float:left;">운동</div></button></a>
+            </div>
+            <div style="padding-left:0; padding-top:0;">
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+                <container style="padding-right:1%; "><button herf="#" style="width:11%; height:30px; border: solid 1px; border-radius:0px 50px 50px 0px;"><div style="float:left;">식단</div></button></container>
+            </div>
+
+
+            <div style="padding-top:2%;">
+                <p1>오늘의 식단</p1>
+                <div style="padding-top:2%; ">
+                    <container style="float:left; padding-right:27%; border-bottom: solid 1px;">아침</container>
+                    <container style="float:left; padding-right:26%; border-bottom: solid 1px;">점심</container>
+                    <container style="float:left; padding-right:32%; border-bottom: solid 1px;">저녁</container>
+
+                    <ul style="float:left; padding-left:1%; width:28%;padding-top: 1%;">
+                        <li>{{ food }}</li>
+                        <li>{{ food_1 }}</li>
+                        <li>{{ food_2 }}</li>
+                    </ul>
+                    <ul style="float:left; width:28%;padding-top: 1%;">
+                        <li>{{ food_3 }}</li>
+                        <li>{{ food_4 }}</li>
+                        <li>{{ food_5 }}</li>
+                    </ul>
+                    <ul style="float:left;padding-top: 1%;">
+                        <li>{{ food_6 }}</li>
+                        <li>{{ food_7 }}</li>
+                        <li>{{ food_8 }}</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div style = "padding-top:20%; padding-left:0;">
+                <p1>인바디 측정 결과</p1>
+            </div>
+            <container style="float:left; margin-top:1%; width:45%; height:60vh; border-right: solid 1px;">
+
+                <img style="padding-left:1; float:left; width:45%; height:90%; padding-top:10%;" src="https://robilitive.hansnara.pe.kr/wp-content/uploads/sites/6/2014/04/body-diagram.png">
+                <div class="container" style="float:left; border-bottom:solid 1px; width:52%; padding-top:20%;">
+                    골격근/지방 분석(kg)
+                </div>
+                <div style= "float:left; width:54%; padding-top:3%;">현재체중
+                  <td class="form-control" style="border:solid 1px; float:right; margin-right:3%; width:56%; height:2vh;" >{{ sets.weight }}(kg)</td>
+              </div>
+                <div style= "float:left; width:54%; padding-top:3%;">골격근량
+                    <td class="form-control" style="border:solid 1px; float:right; margin-right:3%; width:56%; height:2vh;" id="muscle">{{ sets.muscle }}(kg)</td>
+                </div>
+                <div style= "float:left; width:54%; padding-top:3%;">체지방량
+                    <td class="form-control" style="border:solid 1px; float:right; margin-right:3%; width:56%; height:2vh;" id="fat">{{ sets.fat }}(kg)</td>
+                </div>
+               
+            </container>
+
+                <div class='container' style='padding-left:50%; margin-top:2%;'>칼로리 현황</div>
+
+
+                <div class="container" style=" float:left; margin-left:5%; border-bottom:solid 1px; width:15%; margin-top:1%; padding-left:0; ">소모된 칼로리
+                </div>
+                <div class="container" style=" float:left; border-bottom:solid 1px; width:15%; margin-top:1%; margin-left:0; height:5%;">섭취 칼로리
+                </div>
+                <div class="container" style="float:left; border-bottom:solid 1px; width:15%; margin-top:1%; padding-right:0;">소모해야할 칼로리
+                </div>
+
+                <div class="container" style=" float:left; margin-left:5%;  width:15%;" id="health_calorie">{{ cal.health_calorie }}kcal</div>
+                <div class="container" style=" float:left;  width:15%;  padding-left:1%;" id="eat_calorie">{{ cal.eat_calorie }}kcal</div>
+                <div class="container" style="float:left;  width:11%; padding-left:3%; ">{{ 1800|sub:cal.health_calorie|add:cal.eat_calorie }}kcal</div>
+          <a href="{% url 'food:food' %}"><button class=" btn btn-lg" style=" border-radius: 20px; width:20%; margin:auto; display:block; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); background-color:#8F9FDB;" type="submit"><font style="color:#FFFFFF;">수정하기</font></button></a>
+
+
+                <div class='container' style='padding-left:50%; margin-top:15%;'>체중 현황</div>
+
+                <div class="container" style=" float:left; margin-left:5%; border-bottom:solid 1px; width:15%; margin-top:1%; padding-left:0; ">기존 체중
+                </div>
+                <div class="container" style=" float:left; border-bottom:solid 1px; width:15%; margin-top:1%; margin-left:0; ;">현재 체중
+                </div>
+                <div class="container" style="float:left; border-bottom:solid 1px; width:15%; margin-top:1%; padding-right:0;">목표 체중
+                </div>
+
+                <div class="container" style=" float:left; margin-left:5%; border-bottom:solid 1px; width:15%; margin-top:1%; padding-left:0;" >{{ sets.weight }}(kg)</div>
+                <div class="container" style=" float:left; border-bottom:solid 1px; width:15%; margin-top:1%; margin-left:0; " id="weight">{{ sets.weight }}(kg)</div>
+                <div class="container" style="float:left; border-bottom:solid 1px; width:15%; margin-top:1%; padding-right:0;" id="target_weight">{{ sets.target_weight }}(kg)</div>
+                <a href="{% url 'setting:inbody_list' %}"><button class=" btn btn-lg" style=" border-radius: 20px; width:20%; margin:auto; display:block; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); background-color:#8F9FDB;" type="submit"><font style="color:#FFFFFF;">수정하기</font></button></a>
+
+        </div>
+            </container>
+</body>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <style>
+            .calendar {
+              width: 400px;
+              border: 1px solid #ccc;
+              
+            }
+          
+            .calendar-header {
+              background: #f0f0f0;
+              padding: 10px;
+              text-align: center;
+            }
+          
+            .calendar-header button {
+              padding: 5px 10px;
+              margin: 0 5px;
+            }
+            .calendar-row{
+              
+              width:560px;
+              
+            }
+            .calendar-day-of-week{
+              float:left;
+              width: 10%;
+              padding: 10px;
+              box-sizing: border-box;
+              text-align: center;
+            }
+            .calendar-grid {
+              display: grid;
+              grid-template-rows: repeat(5,2fr);
+              grid-gap: 10px;
+              background: #fff;
+            }
+          
+            .calendar-day {
+              float: left;
+              width: 10%;
+              padding: 10px;
+              box-sizing: border-box;
+              text-align: center;
+              cursor: pointer;
+            }
+          
+            .selected-day {
+              background-color: #ccc;
+            }
+        </style>
+      </head>
+    <body>
+        <container style="width:auto; height:auto; overflow: hidden;">
+              <div class="d-flex  justify-content-center " style="float:right;  padding-right:1%;">
+
+                <div class="text-end">
+
+                    {% if request.user.is_authenticated %}
+                        {{ request.user }}님 환영합니다.
+                    <a href ="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:	#8F9FDB;">Logout</button></a>
+                    {% else %}
+                        <a href="{% url 'common:login' %}"><button type="button" class="btn btn-outline-light me-2" style="background-color:	#8F9FDB;">Login</button></a>
+                        <a href="{% url 'common:signup' %}"><button type="button" class="btn btn-warning">Signup</button></a>
+                    {% endif %}
+                </div>
+              </div>
+
+    <div class=" d-flex flex-column " style="background: rgba(82, 114, 233, 0.41); width: 11%; height:115vh;  border-radius:0px 50px 50px 0px; float:left;">
+        <a href="{% url 'common:home' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
+          <svg class="bi pe-none me-1" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="p-3 fs-4">다이어터</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto" >
+          <li class="nav-item"  >
+            <a href="{% url 'common:index' %}" class="nav-link text-white" aria-current="page">
+              <svg class="bi pe-none me-3" width="30%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#home"></use></svg>
+              홈
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'health:four' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#speedometer2"></use></svg>
+              운동
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'food:food_menu' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#table"></use></svg>
+              식단
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'setting:inbody_list' %}" class="nav-link text-white" style='background-color:#8F9FDB;'>
+              <svg class="bi pe-none me-3" width="27%"  style = "padding-bottom:20%; height:70px;"><use xlink:href="#grid"></use></svg>
+              설정
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'board:board_list' %}" class="nav-link text-white">
+              <svg class="bi pe-none me-4" width="21%"  style="height:70px;"><use xlink:href="#people-circle"></use></svg>
+              게시판
+            </a>
+          </li>
+        </ul>
+      </div>
+        <div class='container' style="width:400px; margin-top:17%; display:inline-block; margin-left:22%;">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <h5 class="h3 mb-3 fw-normal" style="text-align:center;">인바디 정보</h5>
+
+                    <div class="mb-3">
+                        체중
+                        <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="weight" id="weight" value="{{ Sets.weight }}" placeholder="65(kg)">
+                    </div>
+                    <div class="mb-3">
+                        골격근량
+                        <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="muscle" id="muscle" value="{{ Sets.muscle }}" placeholder="33(kg)" >
+                    </div>
+                    <div class="mb-3">
+                        체지방량
+                        <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="fat" id="fat" value="{{ Sets.fat }}" placeholder="23(kg)">
+                    </div>
+                    <div class="mb-3">
+                        목표체중
+                        <input type="number" class="form-control" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="target_weight" id="target_weight" value="{{ Sets.target_weight }}" placeholder="55(kg)">
+                    </div>
+<!--                        <div class="calendar" style="float:right;margin-top:15%; margin-right:4%;">-->
+<!--                      <h5 style="margin-left:38%;">목표 날짜</h5>-->
+<!--                      <div class="calendar-header">-->
+<!--                        <button id="previousBtn" style="float:left;">이전 달</button>-->
+<!--                        <button id="nextBtn" style="float:right;">다음 달</button>-->
+<!--                        <h2 id="monthYear"></h2>-->
+<!--                      </div>-->
+<!--                      <div class="calendar-grid" id="calendarGrid" ></div>-->
+<!--                    </div>-->
+<!--                    <script>-->
+<!--                      // 선택한 날짜를 저장할 변수-->
+<!--                      let selectedDate = null;-->
+<!--                      // 달력 생성 및 초기화-->
+<!--                      function renderCalendar(year, month) {-->
+<!--                        const calendarGrid = document.getElementById('calendarGrid');-->
+<!--                        calendarGrid.innerHTML = '';-->
+
+<!--                        const monthYearElement = document.getElementById('monthYear');-->
+<!--                        monthYearElement.innerText = getMonthName(month) + ' ' + year;-->
+
+<!--                        const firstDay = new Date(year, month, 1).getDay();-->
+<!--                        const lastDay = new Date(year, month + 1, 0).getDate();-->
+
+<!--                        // 요일 표시-->
+<!--                        const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];-->
+<!--                        let daysOfWeekRow = document.createElement('div');-->
+<!--                        daysOfWeekRow.className = 'calendar-row';-->
+
+<!--                        for (let i = 0; i < 7; i++) {-->
+<!--                          let dayOfWeekElement = document.createElement('div');-->
+<!--                          dayOfWeekElement.className = 'calendar-day-of-week';-->
+<!--                          dayOfWeekElement.innerText = daysOfWeek[i];-->
+<!--                          daysOfWeekRow.appendChild(dayOfWeekElement);-->
+<!--                        }-->
+
+<!--                        calendarGrid.appendChild(daysOfWeekRow);-->
+
+<!--                        let weekRow = document.createElement('div');-->
+<!--                        weekRow.className = 'calendar-row';-->
+
+<!--                        // 이전 달 날짜-->
+<!--                        for (let i = firstDay - 1; i >= 0; i&#45;&#45;) {-->
+<!--                          let dayElement = createDayElement('', true);-->
+<!--                          weekRow.appendChild(dayElement);-->
+<!--                        }-->
+
+<!--                        let day = 1;-->
+<!--                        while (day <= lastDay) {-->
+<!--                          let dayElement = createDayElement(day);-->
+<!--                          weekRow.appendChild(dayElement);-->
+
+<!--                          if (weekRow.childElementCount === 7) {-->
+<!--                            calendarGrid.appendChild(weekRow);-->
+<!--                            weekRow = document.createElement('div');-->
+<!--                            weekRow.className = 'calendar-row';-->
+<!--                          }-->
+
+<!--                          day++;-->
+<!--                        }-->
+
+<!--                        // 다음 달 날짜-->
+<!--                        for (let i = weekRow.childElementCount; i < 7; i++) {-->
+<!--                          let dayElement = createDayElement('', true);-->
+<!--                          weekRow.appendChild(dayElement);-->
+<!--                        }-->
+
+<!--                        if (weekRow.childElementCount > 0) {-->
+<!--                          calendarGrid.appendChild(weekRow);-->
+<!--                        }-->
+<!--                      }-->
+<!--                      // 날짜 요소 생성-->
+<!--                      function createDayElement(day) {-->
+<!--                        let dayElement = document.createElement('div');-->
+<!--                        dayElement.className = 'calendar-day';-->
+<!--                        dayElement.innerText = day;-->
+
+<!--                        dayElement.addEventListener('click', () => {-->
+<!--                          selectDate(dayElement);-->
+<!--                        });-->
+
+<!--                        return dayElement;-->
+<!--                      }-->
+
+<!--                      // 월 이름 가져오기-->
+<!--                      function getMonthName(month) {-->
+<!--                        const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];-->
+<!--                        return months[month];-->
+<!--                      }-->
+
+<!--                      // 날짜 선택 처리-->
+<!--                      function selectDate(dayElement) {-->
+<!--                        // 이전에 선택된 날짜 스타일 제거-->
+<!--                        if (selectedDate) {-->
+<!--                          selectedDate.classList.remove('selected-day');-->
+<!--                        }-->
+
+<!--                        // 선택한 날짜 스타일 추가-->
+<!--                        dayElement.classList.add('selected-day');-->
+<!--                        selectedDate = dayElement;-->
+
+<!--                        // 선택한 날짜 DB로 전송-->
+<!--                        const year = parseInt(document.getElementById('monthYear').innerText.split(' ')[1]);-->
+<!--                        const month = getMonthIndex(document.getElementById('monthYear').innerText.split(' ')[0]);-->
+<!--                        const day = parseInt(dayElement.innerText);-->
+<!--                        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;-->
+<!--                        sendDateToDB(year, month, day,csrf_token );-->
+<!--                      }-->
+
+<!--                      // 월 이름을 인덱스로 변환-->
+<!--                      function getMonthIndex(month) {-->
+<!--                        const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];-->
+<!--                        return months.indexOf(month);-->
+<!--                      }-->
+
+<!--                      // 선택한 날짜를 DB로 전송-->
+<!--                      function sendDateToDB(year, month, day) {-->
+<!--                        // AJAX 또는 fetch를 사용하여 서버로 전송하는 코드 작성-->
+<!--                        // 여기서는 PHP 예시로 작성하겠습니다.-->
+<!--                        const data = {-->
+<!--                          year: year,-->
+<!--                          month: month,-->
+<!--                          day: day-->
+<!--                        };-->
+
+
+<!--                        fetch('/setting/inbody/', {-->
+<!--                          method: 'POST',-->
+<!--                          headers: {-->
+<!--                            'Content-Type': 'application/json'-->
+
+
+<!--                          },-->
+<!--                          body: JSON.stringify(data)-->
+<!--                        })-->
+<!--                        .then(response => {-->
+<!--                          // 전송 성공 처리-->
+<!--                          console.log('Date sent to DB successfully.');-->
+<!--                        })-->
+<!--                        .catch(error => {-->
+<!--                          // 전송 실패 처리-->
+<!--                          console.error('Failed to send date to DB:', error);-->
+<!--                        });-->
+<!--                      }-->
+
+<!--                     // 이전 달로 이동-->
+<!--                    function previousMonth() {-->
+<!--                      const monthYearElement = document.getElementById('monthYear');-->
+<!--                      const currentMonthYear = monthYearElement.innerText.split(' ');-->
+<!--                      let year = parseInt(currentMonthYear[1]);-->
+<!--                      let month = getMonthIndex(currentMonthYear[0]) - 1;-->
+
+<!--                      if (month < 0) {-->
+<!--                        month = 11;-->
+<!--                        year&#45;&#45;;-->
+<!--                      }-->
+
+<!--                      monthYearElement.innerText = getMonthName(month) + ' ' + year;-->
+<!--                      renderCalendar(year, month);-->
+<!--                    }-->
+
+<!--                    // 다음 달로 이동-->
+<!--                    function nextMonth() {-->
+<!--                      const monthYearElement = document.getElementById('monthYear');-->
+<!--                      const currentMonthYear = monthYearElement.innerText.split(' ');-->
+<!--                      let year = parseInt(currentMonthYear[1]);-->
+<!--                      let month = getMonthIndex(currentMonthYear[0]) + 1;-->
+
+<!--                      if (month > 11) {-->
+<!--                        month = 0;-->
+<!--                        year++;-->
+<!--                      }-->
+
+<!--                      monthYearElement.innerText = getMonthName(month) + ' ' + year;-->
+<!--                      renderCalendar(year, month);-->
+<!--                    }-->
+
+<!--                    // 이전 달로 이동 버튼 클릭 이벤트 핸들러-->
+<!--                    document.getElementById('previousBtn').addEventListener('click', function(event) {-->
+<!--                      event.preventDefault(); // 버튼의 기본 동작 중단-->
+<!--                      previousMonth();-->
+<!--                    });-->
+
+<!--                    // 다음 달로 이동 버튼 클릭 이벤트 핸들러-->
+<!--                    document.getElementById('nextBtn').addEventListener('click', function(event) {-->
+<!--                      event.preventDefault(); // 버튼의 기본 동작 중단-->
+<!--                      nextMonth();-->
+<!--                    });-->
+
+<!--                      // 초기화: 현재 날짜로 달력 표시-->
+<!--                      const currentDate = new Date();-->
+<!--                      const currentYear = currentDate.getFullYear();-->
+<!--                      const currentMonth = currentDate.getMonth();-->
+<!--                      renderCalendar(currentYear, currentMonth);-->
+<!--                    </script>-->
+
+
+
+
+
+                 
+                    <button class=" btn btn-lg" style="border-radius: 20px; width:50%; margin:auto; display:block; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); background-color:#8F9FDB;" type="submit"><font style="color:#FFFFFF;">저장하기</font></button>
+                </form>
+            </div>
+
+            
+        </container>
+    </body>
+</html>
